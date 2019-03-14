@@ -1,6 +1,7 @@
 nav {
-    display: inline-flex;
-    justify-content: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     padding-right: 10px;
 }
 header {
@@ -33,6 +34,35 @@ label {
     margin-left: 20px;
 }
 
+.buttons > a {
+    padding-right: 10px;
+}
+.main-title {
+    text-align: center;
+    margin: 0;
+    top: 0;
+}
+.big-title {
+    margin: 0 auto 0 auto;
+    padding-left: 40px;
+}
+.buttons {
+    display: flex;
+}
+
 #logout-link {
     color: white;
+}
+
+@media screen and (max-width: 600px) {
+    nav {
+        height: 100px;
+    }
+    .big-title {
+        padding-left: 0;
+    }
+    .buttons {
+        margin: 0 auto 0 auto;
+
+    }
 }
