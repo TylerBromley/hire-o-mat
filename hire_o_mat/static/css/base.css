@@ -1,0 +1,38 @@
+nav {
+    display: inline-flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+header {
+    display: flex;
+    justify-content: center;
+}
+select {
+    display: flex;
+}
+footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+input[type="checkbox"], input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked  {
+    display: flex;
+    position: relative;
+    opacity: 1;
+    background-color: gray;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 10px;
+}
+
+label {
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 20px;
+    margin-left: 20px;
+}
+
+#logout-link {
+    color: white;
+}

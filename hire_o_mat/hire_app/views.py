@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render, reverse
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
+from .forms import UserProfileForm
 
 from .models import CompanyProfile, UserProfile
 
@@ -13,14 +14,38 @@ class HomePage(TemplateView):
     model = UserProfile
     template_name = 'home.html'
 
-class CreateUserProfile(LoginRequiredMixin, TemplateView):
+class CreateUserProfile(LoginRequiredMixin, CreateView):
     model = UserProfile
+    form_class = UserProfileForm
+    # fields = ["about_me", "tagline", "skills", "city", "photo", "main_link", "secondary_link", "work_experience_1"]
     template_name = 'create_user_profile.html'
+    success_url = reverse_lazy('hire_o_mat:user_home')
 
-class CreateCompanyProfile(LoginRequiredMixin, TemplateView):
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+
+class CreateCompanyProfile(LoginRequiredMixin, CreateView):
     model = CompanyProfile
+    fields = ["company_name", "contact_email", "about", "city", "logo"]
     template_name = 'create_company_profile.html'
+    success_url = reverse_lazy('hire_o_mat:user_home')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class UserHome(LoginRequiredMixin, TemplateView):
     template_name = 'user_home.html'
 
+
+# class ChirpCreateView(LoginRequiredMixin, CreateView):
+#     model = Post
+#     template_name = 'new_post.html'
+#     fields = ['body']
+#     login_url = 'login'
+
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
