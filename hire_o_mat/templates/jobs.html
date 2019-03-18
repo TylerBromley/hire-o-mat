@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+{% for pos in object_list %}
+<h3>{{ pos.position }}</h3>
+<h3>{{ pos.description }}</h3>
+<hr/>
+<br/>
+{% endfor %}
+{% endblock %}

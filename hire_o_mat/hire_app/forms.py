@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import CompanyProfile, Skill, UserProfile
+from .models import CompanyProfile, Position, Skill, UserProfile
 
 class UserProfileForm(ModelForm):
     skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), widget=forms.CheckboxSelectMultiple)
@@ -32,6 +32,28 @@ class CompanyProfileForm(ModelForm):
             if commit:
                 company.save()
             return company
+
+class JobForm(ModelForm):
+
+    class Meta:
+        model = Position
+        fields = ["position", "description"]
+
+        def save(self, commit=True):
+            job = super(JobForm, self).save(commit=False)
+            if commit:
+                job.save()
+            return job
+
+# class Position(models.Model):
+#     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
+#     pos = models.CharField(max_length=500)
+#     description = models.TextField(null=True, blank=True)
+#     photo = models.ImageField(upload_to='images', null=True, blank=True)
+
+#     def __str__(self):
+#         return self.pos
+
 
 # class CompanyProfile(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)

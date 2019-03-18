@@ -6,13 +6,21 @@ from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
-from .forms import CompanyProfileForm, UserProfileForm
+from .forms import CompanyProfileForm, JobForm, UserProfileForm
 
-from .models import CompanyProfile, UserProfile
+from .models import CompanyProfile, Position, UserProfile
 
 class HomePage(TemplateView):
     model = UserProfile
     template_name = 'home.html'
+
+class UserProfileList(LoginRequiredMixin, ListView):
+    model = UserProfile
+    template_name = 'profiles.html'
+
+class CompanyProfileList(LoginRequiredMixin, ListView):
+    model = CompanyProfile
+    template_name = 'company_profiles.html'
 
 class CreateUserProfile(LoginRequiredMixin, CreateView):
     model = UserProfile
@@ -36,6 +44,21 @@ class CreateCompanyProfile(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+class CreateJob(LoginRequiredMixin, CreateView):
+    model = CompanyProfile
+    form_class = JobForm
+    # fields = ["company_name", "contact_email", "about", "city", "logo"]
+    template_name = 'create_job.html'
+    success_url = reverse_lazy('hire_o_mat:user_home')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class JobList(LoginRequiredMixin, ListView):
+    model = Position
+    template_name = 'jobs.html'
 
 class UserHome(LoginRequiredMixin, TemplateView):
     template_name = 'user_home.html'

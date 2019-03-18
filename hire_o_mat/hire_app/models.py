@@ -10,6 +10,15 @@ class City(models.Model):
     def __str__(self):
         return self.city_name
 
+class Position(models.Model):
+    position = models.CharField(max_length=500)
+    description = models.TextField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    photo = models.ImageField(upload_to='images', null=True, blank=True)
+
+    def __str__(self):
+        return self.position
+
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=200)
@@ -17,6 +26,7 @@ class CompanyProfile(models.Model):
     about = models.TextField(null=True, blank=True)
     city = models.ManyToManyField(City, blank=True)
     logo = models.ImageField(upload_to='images', null=True, blank=True)
+    positions = models.ForeignKey(Position, null=True, blank=True, on_delete=models.CASCADE)
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):
@@ -45,19 +55,12 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-class Position(models.Model):
-    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
-    pos = models.CharField(max_length=500)
-    description = models.TextField(null=True, blank=True)
-    photo = models.ImageField(upload_to='images', null=True, blank=True)
 
-    def __str__(self):
-        return self.pos
 
 class Interest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(null=True, auto_now_add=True)
 
 
 

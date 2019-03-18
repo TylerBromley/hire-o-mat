@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+{% for profile in object_list %}
+    {% if profile.logo %}
+    <img src='{{ profile.logo.url }}' />
+    {% endif %}
+    <h1>{{ profile.company_name }}</h1>
+    <h2>{{ profile.contact_email }}</h2>
+    {% for city in profile.city.all %}
+        <h4>{{city}}</h4>
+    {% endfor %}
+    <h2>{{ profile.about }}</h2>
+    <hr/>
+{% endfor %}
+{% endblock %}
