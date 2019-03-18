@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if user.first_name %}
 <h1>Hi {{ user.first_name }}!</h1>
-<h2>Please create a profile:</h2>
-<a href="{% url 'hire_o_mat:create_company_profile' %}">Company Profile</a>
-<a href="{% url 'hire_o_mat:create_user_profile' %}">Personal Profile</a>
+{% else %}
+<h1>Hi {{ user.username }}!</h1>
+{% endif %}
+{% if user.userprofile %}
+<h2>View my user profile</h2>
+<a href="{% url 'hire_o_mat:my_user_profile' %}"><button>My Profile</button></a>
+{% else %}
+<h2>Please create a user profile:</h2>
+<a href="{% url 'hire_o_mat:create_user_profile' %}"><button>Personal Profile</button></a>
+{% endif %}
+{% if user.companyprofile %}
+<h2>View my Company profile</h2>
+<a href="{% url 'hire_o_mat:my_company_profile' %}"><button>My Company Profile</button></a>
+{% else %}
+<h2>Please create a company profile</h2>
+<a href="{% url 'hire_o_mat:create_company_profile' %}"><button>Company Profile</button></a>
+{% endif %}
 {% endblock %}

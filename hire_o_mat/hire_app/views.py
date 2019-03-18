@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
-from .forms import UserProfileForm
+from .forms import CompanyProfileForm, UserProfileForm
 
 from .models import CompanyProfile, UserProfile
 
@@ -28,7 +28,8 @@ class CreateUserProfile(LoginRequiredMixin, CreateView):
 
 class CreateCompanyProfile(LoginRequiredMixin, CreateView):
     model = CompanyProfile
-    fields = ["company_name", "contact_email", "about", "city", "logo"]
+    form_class = CompanyProfileForm
+    # fields = ["company_name", "contact_email", "about", "city", "logo"]
     template_name = 'create_company_profile.html'
     success_url = reverse_lazy('hire_o_mat:user_home')
 
@@ -38,6 +39,15 @@ class CreateCompanyProfile(LoginRequiredMixin, CreateView):
 
 class UserHome(LoginRequiredMixin, TemplateView):
     template_name = 'user_home.html'
+
+
+class MyUserProfile(LoginRequiredMixin, TemplateView):
+    model = UserProfile
+    template_name = 'my_user_profile.html'
+
+class MyCompanyProfile(LoginRequiredMixin, TemplateView):
+    model = CompanyProfile
+    template_name = 'my_company_profile.html'
 
 
 # class ChirpCreateView(LoginRequiredMixin, CreateView):

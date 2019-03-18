@@ -17,6 +17,7 @@
         </div>
         <div class="buttons">
             {% if user.is_authenticated %}
+                <a class="user-home" href="{% url 'hire_o_mat:user_home' %}">My Home</a>
                 <a class="logout-link" href="{% url 'logout' %}">Logout</a>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>

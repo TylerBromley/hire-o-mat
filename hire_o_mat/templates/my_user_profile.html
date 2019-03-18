@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<img src="{{ user.userprofile.photo.url }}"/>
+<h1>{{user.first_name}} {{user.last_name}}</h1>
+<h3>{{user.pk}}</h3>
+<h3>{{user.userprofile.about_me}}</h3>
+<h3>{{user.userprofile.tagline}}</h3>
+{% for skill in user.userprofile.skills.all %}
+    <p>{{skill}}</p>
+{% endfor %}
+{% for city in user.userprofile.city.all %}
+    <h4>{{city}}</h4>
+{% endfor %}
+<a href="{{user.userprofile.main_link}}">{{user.userprofile.main_link}}</a>
+<h3>{{ user.userprofile.work_experience_1 }}</h3>
+{% endblock %}
