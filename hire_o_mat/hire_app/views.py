@@ -74,8 +74,8 @@ class MyCompanyProfile(LoginRequiredMixin, TemplateView):
 
 class UpdateUserProfile(LoginRequiredMixin, UpdateView):
     model = UserProfile
-    # form_class = UserProfileForm
-    fields = ["about_me", "tagline", "skills", "city", "main_link", "secondary_link", "work_experience_1"]
+    form_class = UserProfileForm
+    # fields = ["about_me", "tagline", "skills", "city", "main_link", "secondary_link", "work_experience_1"]
     template_name = 'edit_user_profile.html'
     success_url = reverse_lazy('hire_o_mat:my_user_profile')
 

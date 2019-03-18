@@ -6,7 +6,6 @@
 {% endif %}
 
 <h1>{{user.first_name}} {{user.last_name}}</h1>
-<h3>{{user.pk}}</h3>
 <h3>{{user.userprofile.about_me}}</h3>
 <h3>{{user.userprofile.tagline}}</h3>
 {% for skill in user.userprofile.skills.all %}
