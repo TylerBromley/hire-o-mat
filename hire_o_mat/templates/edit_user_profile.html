@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Edit Profile</h2>
+    <form action="{% url 'hire_o_mat:edit_user_profile' user.userprofile.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Profile">
+    </form>
+{% endblock %}
