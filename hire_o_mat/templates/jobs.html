@@ -2,9 +2,16 @@
 {% block content %}
 <a href="{% url 'hire_o_mat:user_home' %}">back</a>
 {% for pos in object_list %}
-<h3>{{ pos.position }}</h3>
-<h3>{{ pos.description }}</h3>
-<hr/>
-<br/>
+
+    {% if pos.company.logo %}
+        <img src='/images/{{ pos.company.logo }}' height="60" width="60"/>
+    {% endif %}
+
+    <h3>{{pos.company }}</h3>
+    <h3>{{ pos.position }}</h3>
+    <h3>{{ pos.description }}</h3>
+    
+    <hr/>
+    <br/>
 {% endfor %}
 {% endblock %}

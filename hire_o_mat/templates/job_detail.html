@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="position-entry">
+    <img src='/images/{{ position.company.logo }}' height="60" width="60"/>
+    <h2>{{ position.company }}</h2>
+    <h2><em>{{ position.position }}</em></h2>
+    <h3>{{ position.description }}</h3>
+    <p>Posted on {{ position.date_added }}</p>
+</div>
+
+{% endblock %}

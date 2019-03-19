@@ -1,34 +1,84 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if user.first_name %}
-<h1>Hi {{ user.first_name }}!</h1>
-{% else %}
-<h1>Hi {{ user.username }}!</h1>
-{% endif %}
-<h1>User Section</h1>
-<h2>View company profiles</h2>
-<a href="{% url 'hire_o_mat:company_profiles' %}"><button>View company profiles</button></a>
-{% if user.userprofile %}
-<h2>View my user profile</h2>
-<a href="{% url 'hire_o_mat:my_user_profile' %}"><button>My Profile</button></a>
-<h2>See jobs</h2>
-<a href="{% url 'hire_o_mat:jobs' %}"><button>Job Listings</button></a>
-{% else %}
-<h2>Please create a user profile:</h2>
-<a href="{% url 'hire_o_mat:create_user_profile' %}"><button>Personal Profile</button></a>
-{% endif %}
-<br><br>
-<hr>
-<h1>Company Section</h1>
-{% if user.companyprofile %}
-<h2>View user profiles</h2>
-<a href="{% url 'hire_o_mat:profiles' %}"><button>View profiles</button></a>
-<h2>View my Company profile</h2>
-<a href="{% url 'hire_o_mat:my_company_profile' %}"><button>My Company Profile</button></a>
-<h2>Create Job Listing</h2>
-<a href="{% url 'hire_o_mat:create_job' %}"><button>Create Job</button></a>
-{% else %}
-<h2>Please create a company profile</h2>
-<a href="{% url 'hire_o_mat:create_company_profile' %}"><button>Company Profile</button></a>
-{% endif %}
+
+<header id="user-home-header">
+
+    {% if user.companyprofile %}
+        <h1>{{ user.companyprofile.company_name }}</h1>
+    {% endif %}
+
+    {% if user.first_name %}
+        <h1>Hi {{ user.first_name }}!</h1>
+    {% else %}
+        <h1>Hi {{ user.username }}!</h1>
+    {% endif %}
+    <hr>
+
+</header>
+
+<section id="user-section">
+
+    <h1>User Section</h1>
+
+    <h2>View company profiles</h2>
+    <a href="{% url 'hire_o_mat:company_profiles' %}">
+        <button>View company profiles</button>
+    </a>
+
+    {% if user.userprofile %}
+
+        <h2>View my user profile</h2>
+        <a href="{% url 'hire_o_mat:my_user_profile' %}">
+            <button>My Profile</button>
+        </a>
+
+        <h2>See jobs</h2>
+        <a href="{% url 'hire_o_mat:jobs' %}">
+            <button>Job Listings</button>
+        </a>
+
+    {% else %}
+        <h2>Please create a user profile:</h2>
+        <a href="{% url 'hire_o_mat:create_user_profile' %}">
+            <button>Personal Profile</button>
+        </a>
+    {% endif %}
+    <br><br>
+    <hr>
+</section>
+
+<section id="company-section">
+
+    <h1>Company Section</h1>
+
+    {% if user.companyprofile %}
+
+        <h2>View user profiles</h2>
+        <a href="{% url 'hire_o_mat:profiles' %}"><button>View profiles</button></a>
+
+        <h2>View my Company profile</h2>
+        <a href="{% url 'hire_o_mat:my_company_profile' %}">
+            <button>My Company Profile</button>
+        </a>
+
+        <h2>Current Open Positions</h2>
+        {% for pos in position %}
+            <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">{{ pos.position }}</a>
+        {% endfor %}
+
+        <h2>Create Job Listing</h2>
+        <a href="{% url 'hire_o_mat:create_job' %}">
+            <button>Create Job</button>
+        </a>
+
+    {% else %}
+
+        <h2>Please create a company profile</h2>
+        <a href="{% url 'hire_o_mat:create_company_profile' %}">
+            <button>Company Profile</button>
+        </a>
+
+    {% endif %}
+</section>
+
 {% endblock %}

@@ -10,14 +10,6 @@ class City(models.Model):
     def __str__(self):
         return self.city_name
 
-class Position(models.Model):
-    position = models.CharField(max_length=500)
-    description = models.TextField(null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField(upload_to='images', null=True, blank=True)
-
-    def __str__(self):
-        return self.position
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -26,17 +18,29 @@ class CompanyProfile(models.Model):
     about = models.TextField(null=True, blank=True)
     city = models.ManyToManyField(City, blank=True)
     logo = models.ImageField(upload_to='images', null=True, blank=True)
-    positions = models.ForeignKey(Position, null=True, blank=True, on_delete=models.CASCADE)
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.company_name
+
+
+class Position(models.Model):
+    position = models.CharField(max_length=500)
+    company = models.ForeignKey(CompanyProfile, null=True, blank=True, on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    photo = models.ImageField(upload_to='images', null=True, blank=True)
+
+    def __str__(self):
+        return self.position
+
 
 class Skill(models.Model):
     skill = models.CharField(max_length=200)
 
     def __str__(self):
         return self.skill
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -54,7 +58,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-
 
 
 class Interest(models.Model):
