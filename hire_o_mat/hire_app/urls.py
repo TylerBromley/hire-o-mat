@@ -22,6 +22,8 @@ urlpatterns = [
 
     path('create_job/', views.CreateJob.as_view(), name="create_job"),
     path('job_detail/<int:pk>', views.JobDetail.as_view(), name="job_detail"),
+    path('job_like_toggle/<int:pk>', views.JobLikeToggle.as_view(), name="job_like_toggle"),
+    path('api/<int:pk>/like', views.JobLikeAPIToggle.as_view(), name="job_like_api_toggle"),
     path('jobs/', views.JobList.as_view(), name="jobs"),
     
 ]

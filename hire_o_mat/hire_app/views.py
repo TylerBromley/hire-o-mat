@@ -1,13 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, RedirectView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
 from .forms import CompanyProfileForm, JobForm, UserProfileForm
-
+# DRF STUFF
+from rest_framework import authentication, generics
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+# MODELS
 from .models import CompanyProfile, Position, UserProfile
 
 ########### MAIN PAGES ############
@@ -23,6 +28,7 @@ class UserHome(LoginRequiredMixin, TemplateView):
          context = super(UserHome, self).get_context_data(**kwargs)
          context['company'] = CompanyProfile.objects.get(user=self.request.user)
          context['position'] = Position.objects.filter(company=self.request.user.companyprofile.id)
+         context['likes'] = Position.objects.filter(likes=self.request.user.id)
          return context
 
 
@@ -41,6 +47,18 @@ class JobDetail(LoginRequiredMixin, DetailView):
     model = Position
     template_name = 'job_detail.html'
 
+class JobLikeToggle(LoginRequiredMixin, RedirectView):
+    def get_redirect_method(self, *args, **kwargs):
+        pos = self.kwargs.get("position")
+        obj = get_object_or_404(Position, position=pos)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        if user.is_authenticated():
+            if user in obj.likes.all():
+                obj.likes.remove(user)
+            else:
+                obj.likes.add(user)
+        return url_
 
 ########## LIST VIEW ###########
 class UserProfileList(LoginRequiredMixin, ListView):
@@ -120,3 +138,37 @@ class UpdateCompanyProfile(LoginRequiredMixin, UpdateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+######### API VIEW ###########
+
+class JobLikeAPIToggle(APIView):
+    # authentication_classes = (authentication.SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, pk=None, format=None):
+        pos = self.kwargs.get("position")
+        obj = get_object_or_404(Position, pk=pk)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        updated = False
+        liked = False
+
+        if user.is_authenticated:
+            if user in obj.likes.all():
+                liked = False
+                updated = True
+                obj.likes.remove(user)
+            else:
+                liked = True
+                obj.likes.add(user)
+                updated = True
+        data = {
+            "updated": updated,
+            "liked": liked
+        }
+        return Response(data)
+
+    # def list(self, request):
+    #     # Note the use of `get_queryset()` instead of `self.queryset`
+    #     queryset = self.get_queryset()
+    #     serializer = UserSerializer(queryset, many=True)
+    #     return Response(serializer.data)

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 class City(models.Model):
     city_name = models.CharField(max_length=200)
@@ -30,9 +31,19 @@ class Position(models.Model):
     description = models.TextField(null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to='images', null=True, blank=True)
+    likes = models.ManyToManyField(User, blank=True, related_name='position_likes')
 
     def __str__(self):
         return self.position
+
+    def get_absolute_url(self):
+        return reverse("hire_o_mat:job_detail", kwargs={"pk": self.pk})
+
+    def get_like_url(self):
+        return reverse("hire_o_mat:job_like_toggle", kwargs={"pk": self.pk})
+
+    def get_api_like_url(self):
+        return reverse("hire_o_mat:job_like_api_toggle", kwargs={"pk": self.pk})
 
 
 class Skill(models.Model):

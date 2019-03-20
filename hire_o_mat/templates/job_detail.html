@@ -7,6 +7,8 @@
     <h2><em>{{ position.position }}</em></h2>
     <h3>{{ position.description }}</h3>
     <p>Posted on {{ position.date_added }}</p>
+    <a data-href="{{ position.get_api_like_url }}" href="{{ position.get_like_url }}" data-likes="position.likes.count" class="like-btn"><p>Likes: {{ position.likes.count }}</p></a>
 </div>
+
 
 {% endblock %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hire_app',
     'accounts',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 
 LOGIN_REDIRECT_URL = 'hire_o_mat:user_home'
 LOGOUT_REDIRECT_URL = 'hire_o_mat:home'
+

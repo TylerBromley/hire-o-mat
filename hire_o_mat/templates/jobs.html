@@ -10,6 +10,7 @@
     <h3>{{pos.company }}</h3>
     <h3>{{ pos.position }}</h3>
     <h3>{{ pos.description }}</h3>
+    <a data-href="{{ pos.get_api_like_url }}" href="{{ pos.get_like_url }}" data-likes="pos.likes.count" class="like-btn"><p>Likes: {{ pos.likes.count }}</p></a>
     
     <hr/>
     <br/>
