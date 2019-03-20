@@ -42,6 +42,9 @@ class MyCompanyProfile(LoginRequiredMixin, TemplateView):
     model = CompanyProfile
     template_name = 'my_company_profile.html'
 
+class ProfileDetail(LoginRequiredMixin, DetailView):
+    model = UserProfile
+    template_name = 'profile_detail.html'
 
 class JobDetail(LoginRequiredMixin, DetailView):
     model = Position

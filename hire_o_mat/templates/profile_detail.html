@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<div class="position-entry">
+    {% if userprofile.photo %}
+        <img src='{{ userprofile.photo.url }}' />
+    {% endif %}
+
+    <h1>{{userprofile.first_name}} {{userprofile.last_name}}</h1>
+    <h3>{{userprofile.about_me}}</h3>
+    <h3>{{userprofile.tagline}}</h3>
+</div>
+{% endblock %}

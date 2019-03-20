@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<a href="{% url 'hire_o_mat:user_home' %}">back</a>
 <div class="position-entry">
     <img src='/images/{{ position.company.logo }}' height="60" width="60"/>
     <h2>{{ position.company }}</h2>
@@ -8,6 +8,12 @@
     <h3>{{ position.description }}</h3>
     <p>Posted on {{ position.date_added }}</p>
     <a data-href="{{ position.get_api_like_url }}" href="{{ position.get_like_url }}" data-likes="position.likes.count" class="like-btn"><p>Likes: {{ position.likes.count }}</p></a>
+    {% if position.likes.count > 0 %}
+    <h3>These job-seekers have shown interest:</h3>
+    {% for user in position.likes.all %}
+    <a href="{% url 'hire_o_mat:profile_detail' user.userprofile.pk %}">{{user.userprofile}}</a>
+    {% endfor %}
+    {% endif %}
 </div>
 
 

@@ -1,18 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Liked Jobs</h2>
-        {% for like in likes %}
-            <a href="{% url 'hire_o_mat:job_detail' like.pk %}">{{ like }}</a>
-        {% endfor %}
-
 <header id="user-home-header">
 
     {% if user.companyprofile %}
-        <h1>{{ user.companyprofile.company_name }}</h1>
-    {% endif %}
-
-    {% if user.first_name %}
+        <h1>Hi {{ user.companyprofile.company_name }} </h1>
+    {% elif user.first_name %}
         <h1>Hi {{ user.first_name }}!</h1>
     {% else %}
         <h1>Hi {{ user.username }}!</h1>
@@ -21,9 +14,16 @@
 
 </header>
 
+
+
 <section id="user-section">
 
     <h1>User Section</h1>
+
+    <h2>Liked Jobs</h2>
+    {% for like in likes %}
+        <a href="{% url 'hire_o_mat:job_detail' like.pk %}">{{ like }}</a>
+    {% endfor %}
 
     <h2>View company profiles</h2>
     <a href="{% url 'hire_o_mat:company_profiles' %}">
@@ -44,22 +44,14 @@
             <button>Job Listings</button>
         </a>
 
-
-            {% comment %}
-            {% if user.id == pos.likes %}
-                <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">
-                    <button>{{ pos.position }}</button>
-                </a>
-            {% endif %}
-            {% endcomment %}
-        
-
     {% else %}
         <h2>Please create a user profile:</h2>
         <a href="{% url 'hire_o_mat:create_user_profile' %}">
             <button>Personal Profile</button>
         </a>
+
     {% endif %}
+
     <br><br>
     <hr>
 </section>
@@ -81,6 +73,7 @@
         <h2>Current Open Positions</h2>
         {% for pos in position %}
             <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">{{ pos.position }}</a>
+            <p>Likes: {{pos.likes.count}}</p>
         {% endfor %}
 
         <h2>Create Job Listing</h2>
