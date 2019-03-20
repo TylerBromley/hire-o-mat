@@ -14,5 +14,11 @@
 {% for city in companyprofile.city.all %}
     <h4>{{city}}</h4>
 {% endfor %}
+<h2>Current Open Positions</h2>
+{% for pos in position %}
+    {% if companyprofile == pos.company %}
 
+    <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">{{ pos.position }}</a>
+    {% endif %}
+{% endfor %}
 {% endblock %}

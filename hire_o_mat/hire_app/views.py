@@ -50,6 +50,11 @@ class ComapanyProfileDetail(LoginRequiredMixin, DetailView):
     model = CompanyProfile
     template_name = 'company_profile_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['position'] = Position.objects.all()
+        return context
+
 class JobDetail(LoginRequiredMixin, DetailView):
     model = Position
     template_name = 'job_detail.html'
