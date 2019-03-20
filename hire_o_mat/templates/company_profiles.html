@@ -17,6 +17,7 @@
     {% endfor %}
 
     <h2>{{ profile.about }}</h2>
+    <a href="{% url 'hire_o_mat:company_profile_detail' profile.pk %}">View company</a>
     <hr/>
 
 {% endfor %}

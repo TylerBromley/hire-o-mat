@@ -20,6 +20,7 @@ urlpatterns = [
     path('create_biz_profile/', views.CreateCompanyProfile.as_view(), name="create_company_profile"),
     path('my_company_profile/', views.MyCompanyProfile.as_view(), name="my_company_profile"),
     path('edit_company_profile/<int:pk>', views.UpdateCompanyProfile.as_view(), name="edit_company_profile"),
+    path('company_profile_detail/<int:pk>', views.ComapanyProfileDetail.as_view(), name="company_profile_detail"),
 
     path('create_job/', views.CreateJob.as_view(), name="create_job"),
     path('job_detail/<int:pk>', views.JobDetail.as_view(), name="job_detail"),

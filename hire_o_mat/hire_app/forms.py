@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import CompanyProfile, Position, Skill, UserProfile
+from .models import City, CompanyProfile, Position, Skill, UserProfile
 
 class UserProfileForm(ModelForm):
     skills = forms.ModelMultipleChoiceField(
@@ -28,6 +28,10 @@ class UserProfileForm(ModelForm):
 
 class CompanyProfileForm(ModelForm):
     logo = forms.ImageField(required=False)
+    city = forms.ModelMultipleChoiceField(
+        queryset=City.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
 
     class Meta:
         model = CompanyProfile
