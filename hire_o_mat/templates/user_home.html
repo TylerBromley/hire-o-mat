@@ -14,8 +14,6 @@
 
 </header>
 
-
-
 <section id="user-section">
 
     <h1>User Section</h1>
@@ -30,7 +28,6 @@
         <button>View company profiles</button>
     </a>
 
-    
 
     {% if user.userprofile %}
 
@@ -63,7 +60,7 @@
     {% if user.companyprofile %}
 
         <h2>View user profiles</h2>
-        <a href="{% url 'hire_o_mat:profiles' %}"><button>View profiles</button></a>
+        <a href="{% url 'hire_o_mat:search_profiles' %}"><button>Search profiles</button></a>
 
         <h2>View my Company profile</h2>
         <a href="{% url 'hire_o_mat:my_company_profile' %}">

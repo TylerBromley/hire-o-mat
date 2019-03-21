@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -6,7 +7,7 @@ from django.views.generic import CreateView, DetailView, ListView, RedirectView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
-from .filters import UserProfileFilter
+from .filters import PositionFilter, UserProfileFilter
 from .forms import CompanyProfileForm, JobForm, UserProfileForm
 # DRF STUFF
 from rest_framework import authentication, generics
@@ -78,10 +79,17 @@ class UserProfileList(LoginRequiredMixin, ListView):
     model = UserProfile
     template_name = 'profiles.html'
 
+@login_required
 def profile_search(request):
     user_list = UserProfile.objects.all()
     user_filter = UserProfileFilter(request.GET, queryset=user_list)
     return render(request, 'profile_list.html', {'filter': user_filter})
+
+@login_required
+def job_search(request):
+    job_list = Position.objects.all()
+    job_filter = PositionFilter(request.GET, queryset=job_list)
+    return render(request, 'job_list.html', {'filter': job_filter})
 
 class CompanyProfileList(LoginRequiredMixin, ListView):
     model = CompanyProfile
