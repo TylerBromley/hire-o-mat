@@ -6,14 +6,8 @@
 <form method="get">
     {{ filter.form.as_p }}
     <button type="submit">Search</button>
-  </form>
-  {% comment %}
-  <ul>
-  {% for user in filter.qs %}
-    <li>{{ user.username }} - {{ user.get_full_name }}</li>
-  {% endfor %}
-  </ul>
-  {% endcomment %}
+</form>
+
 
 {% for profile in filter.qs %}
 
@@ -21,9 +15,10 @@
         <img src='{{ profile.photo.url }}' />
     {% endif %}
 
-    <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+    <h1>{{profile.user.first_name}} {{profile.user.last_name}}</h1>
     <h3>{{profile.about_me}}</h3>
     <h3>{{profile.tagline}}</h3>
+    <h3>Contact me: <a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></h3>
 
     {% for skill in profile.skills.all %}
         <p>{{skill}}</p>
