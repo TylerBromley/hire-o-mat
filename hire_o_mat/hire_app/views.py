@@ -6,6 +6,7 @@ from django.views.generic import CreateView, DetailView, ListView, RedirectView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
+from .filters import UserProfileFilter
 from .forms import CompanyProfileForm, JobForm, UserProfileForm
 # DRF STUFF
 from rest_framework import authentication, generics
@@ -77,6 +78,10 @@ class UserProfileList(LoginRequiredMixin, ListView):
     model = UserProfile
     template_name = 'profiles.html'
 
+def profile_search(request):
+    user_list = UserProfile.objects.all()
+    user_filter = UserProfileFilter(request.GET, queryset=user_list)
+    return render(request, 'profile_list.html', {'filter': user_filter})
 
 class CompanyProfileList(LoginRequiredMixin, ListView):
     model = CompanyProfile

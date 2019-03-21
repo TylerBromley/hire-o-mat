@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+  {% comment %}
+  <ul>
+  {% for user in filter.qs %}
+    <li>{{ user.username }} - {{ user.get_full_name }}</li>
+  {% endfor %}
+  </ul>
+  {% endcomment %}
+
+{% for profile in filter.qs %}
+
+    {% if profile.photo %}
+        <img src='{{ profile.photo.url }}' />
+    {% endif %}
+
+    <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+    <h3>{{profile.about_me}}</h3>
+    <h3>{{profile.tagline}}</h3>
+
+    {% for skill in profile.skills.all %}
+        <p>{{skill}}</p>
+    {% endfor %}
+
+    {% for city in profile.city.all %}
+        <h4>{{city}}</h4>
+    {% endfor %}
+    
+    <a href="{{profile.main_link}}">{{profile.main_link}}</a>
+    <h3>{{ profile.work_experience_1 }}</h3>
+    <hr/>
+    <br/>
+
+{% endfor %}
+
+{% endblock %}
