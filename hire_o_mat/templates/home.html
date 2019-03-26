@@ -1,18 +1,38 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-
-<h2>A dating app for employment!</h2>
-<h3>For Businesses</h3>
-<p>Are you tired of sifting through endless resumes? There's got to be an easier way!<br/>
-    Now with Hire-O-Mat, you can see who is interested in an easy-to-use format, and quickly<br/>
-    create a list of viable candidates. Sign up today!</p>
-<hr>
-
-<h3>For Job-Seekers</h3>
-<p>Think your resume is getting lost in the shuffle? Stand out with Hire-O-Mat!<br/>
-Create a meaningful, engaging profile that highlights the things you want to tell<br/>
-about yourself. Find jobs that suit your skills. Tell hiring companies you're interested.<br/>
-All through one simple, easy-to-use platform. Sign up today!
-</p>
+<div>
+    <div class="parallax-container">
+        <div class="container">
+        </div>
+        <div class="parallax"><img src="{% static 'images/office.jpg' %}"></div>
+        
+    </div>
+    <div class="section white">
+        <div class="row container">
+            <h2 class="header">Potentially the simplest way to find candidates</h2>
+            <h3>For Businesses</h3>
+            <p>Are you tired of sifting through endless resumes? There's got to be an easier way!
+                <br/>
+            Now with Hire-O-Mat&trade;&reg;, you can see who is interested in an easy-to-use format, and quickly
+            <br/>
+            find the perfect candidate. <a href="{% url 'accounts:signup' %}">Sign up today!</a></p>
+        </div>
+    </div>
+    <div class="parallax-container">
+        <div class="parallax"><img src="{% static 'images/woman.jpg' %}"></div>
+    </div>
+    <div class="section white">
+        <div class="row container">
+            <h2 class="header">The best way to find a job*</h2>
+            <h3 class="header">For Job-Seekers</h3>
+            <p>Think your resume is getting lost in the shuffle? Stand out with Hire-O-Mat!<br/>
+            Create a meaningful, engaging profile that highlights the things you want to tell<br/>
+            about yourself. Find jobs that suit your skills. Tell hiring companies you're interested.<br/>
+            All through one simple, easy-to-use platform. <a href="{% url 'accounts:signup' %}">Sign up today!</a>
+            </p>
+            <small>*Is it though?</small>
+        </div>
+    </div>
 
 {% endblock %}

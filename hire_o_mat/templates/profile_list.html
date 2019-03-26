@@ -1,38 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a href="{% url 'hire_o_mat:user_home' %}">Home</a>
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">Home</a>
+<div class="container center">
+    <div class="card">
+        <h3>Search Candidates</h3>
+        <form method="get">
+            {{ filter.form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+        <br>
+    </div>
 
-<form method="get">
-    {{ filter.form.as_p }}
-    <button type="submit">Search</button>
-</form>
 
+    {% for profile in filter.qs %}
+        <div class="card">
+            {% if profile.photo %}
+                <img src='{{ profile.photo.url }}' />
+            {% endif %}
 
-{% for profile in filter.qs %}
+            <h1>{{profile.user.first_name}} {{profile.user.last_name}}</h1>
+            <h3>{{profile.about_me}}</h3>
+            <h3>{{profile.tagline}}</h3>
+            <h3>Contact me: <a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></h3>
 
-    {% if profile.photo %}
-        <img src='{{ profile.photo.url }}' />
-    {% endif %}
+            {% for skill in profile.skills.all %}
+                <p>{{skill}}</p>
+            {% endfor %}
 
-    <h1>{{profile.user.first_name}} {{profile.user.last_name}}</h1>
-    <h3>{{profile.about_me}}</h3>
-    <h3>{{profile.tagline}}</h3>
-    <h3>Contact me: <a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></h3>
+            {% for city in profile.city.all %}
+                <h4>{{city}}</h4>
+            {% endfor %}
+            
+            <a href="{{profile.main_link}}">{{profile.main_link}}</a>
+            <h3>{{ profile.work_experience_1 }}</h3>
+            <br/>
+        </div>
 
-    {% for skill in profile.skills.all %}
-        <p>{{skill}}</p>
     {% endfor %}
-
-    {% for city in profile.city.all %}
-        <h4>{{city}}</h4>
-    {% endfor %}
-    
-    <a href="{{profile.main_link}}">{{profile.main_link}}</a>
-    <h3>{{ profile.work_experience_1 }}</h3>
-    <hr/>
-    <br/>
-
-{% endfor %}
-
+</div>
 {% endblock %}

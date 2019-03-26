@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">back</a>
 
-{% for profile in object_list %}
 
-    {% if profile.logo %}
-        <img src='{{ profile.logo.url }}' />
-    {% endif %}
+<div class="profiles-display center">
 
-    <h1>{{ profile.company_name }}</h1>
-    <h2>{{ profile.contact_email }}</h2>
+    {% for profile in object_list %}
+        <a class="company-pros clear" href="{% url 'hire_o_mat:company_profile_detail' profile.pk %}"><div class="card pro-card">
+            {% if profile.logo %}
+                <img class="profile-logo" src='{{ profile.logo.url }}' />
+            {% else %}
+                <img class="profile-logo" src='/images/images/logo-placeholder.jpg' />
+            {% endif %}
 
-    {% for city in profile.city.all %}
-        <h4>{{city}}</h4>
+            <h4>{{ profile.company_name }}</h4>
+            <p>{{ profile.contact_email }}</p>
+
+            <br>
+        </div></a>
     {% endfor %}
+</div>
 
-    <h2>{{ profile.about }}</h2>
-    <a href="{% url 'hire_o_mat:company_profile_detail' profile.pk %}">View company</a>
-    <hr/>
-
-{% endfor %}
 
 {% endblock %}

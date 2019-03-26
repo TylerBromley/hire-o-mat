@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">back</a>
+<div class="container center">
+    {% if user.companyprofile.logo %}
+        <img src='{{ user.companyprofile.logo.url }}' />
+    {% endif %}
 
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+    <h1>{{ user.companyprofile.company_name }}</h1>
+    <a href="{% url 'hire_o_mat:edit_company_profile' user.companyprofile.id %}"><button>Edit Profile</button></a>
+    <h2>{{ user.companyprofile.contact_email }}</h2>
+    <h2>{{ user.companyprofile.about }}</h2>
 
-{% if user.companyprofile.logo %}
-    <img src='{{ user.companyprofile.logo.url }}' />
-{% endif %}
+    {% for city in user.companyprofile.city.all %}
+        <h4>{{city}}</h4>
+    {% endfor %}
+    <br>
 
-<h1>{{ user.companyprofile.company_name }}</h1>
-<h2>{{ user.companyprofile.contact_email }}</h2>
-<h2>{{ user.companyprofile.about }}</h2>
-
-{% for city in user.companyprofile.city.all %}
-    <h4>{{city}}</h4>
-{% endfor %}
-
-<a href="{% url 'hire_o_mat:edit_company_profile' user.companyprofile.id %}">Edit</a>
-
+    
+</div>
 {% endblock %}

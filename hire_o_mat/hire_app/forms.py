@@ -14,7 +14,7 @@ class UserProfileForm(ModelForm):
         model = UserProfile
         fields = ["about_me", "tagline", "skills", "city",
                   "photo", "main_link", "secondary_link", 
-                  "work_experience_1"
+                  "work_experience_1", "work_experience_2", "work_experience_3"
                 ]
 
         def save(self, commit=True):

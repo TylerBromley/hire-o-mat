@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-<a href="{% url 'hire_o_mat:user_home' %}">Home</a>
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">Back</a>
 
-<form method="get">
-    {{ filter.form.as_p }}
-    <button type="submit">Search</button>
-</form>
+<div class="container center">
+    <div class="card job-filter">
+        <form method="get">
+            {{ filter.form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+    </div>
 
-{% for pos in filter.qs %}
+    {% for pos in filter.qs %}
+        <div class="card pos-card">
+            <div class="center">
+                {% if pos.company.logo %}
+                    <img src='/images/{{ pos.company.logo }}'/>
+                {% endif %}
+            </div>
 
-    {% if pos.company.logo %}
-        <img src='/images/{{ pos.company.logo }}' height="60" width="60"/>
-    {% endif %}
-
-    <h3>{{pos.company }}</h3>
-    <h3>{{ pos.position }}</h3>
-    <h3>{{ pos.description }}</h3>
-    <a data-href="{{ pos.get_api_like_url }}" href="{{ pos.get_like_url }}" data-likes="pos.likes.count" class="like-btn"><p>Likes: {{ pos.likes.count }}</p></a>
-    
-    <hr/>
-    <br/>
-{% endfor %}
+            <h3>{{pos.company }}</h3>
+            <h3>{{ pos.position }}</h3>
+            <h3>{{ pos.description }}</h3>
+            <a data-href="{{ pos.get_api_like_url }}" href="{{ pos.get_like_url }}" data-likes="pos.likes.count" class="like-btn"><button>Likes: {{ pos.likes.count }}</button></a>
+        
+        </div>
+        <br/>
+    {% endfor %}
+</div>
 {% endblock %}

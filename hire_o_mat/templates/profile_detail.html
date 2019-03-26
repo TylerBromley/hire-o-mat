@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <a href="{% url 'hire_o_mat:user_home' %}">back</a>
-<div class="position-entry">
+<div class="container center">
     {% if userprofile.photo %}
         <img src='{{ userprofile.photo.url }}' />
     {% endif %}

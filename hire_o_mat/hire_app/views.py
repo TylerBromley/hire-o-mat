@@ -27,11 +27,14 @@ class UserHome(LoginRequiredMixin, TemplateView):
     template_name = 'user_home.html'
 
     def get_context_data(self, **kwargs):
-         context = super(UserHome, self).get_context_data(**kwargs)
-         context['company'] = CompanyProfile.objects.get(user=self.request.user)
-         context['position'] = Position.objects.filter(company=self.request.user.companyprofile.id)
-         context['likes'] = Position.objects.filter(likes=self.request.user.id)
-         return context
+        context = super(UserHome, self).get_context_data(**kwargs)
+        try:
+            context['company'] = CompanyProfile.objects.get(user=self.request.user)
+            context['position'] = Position.objects.filter(company=self.request.user.companyprofile.id)
+        except CompanyProfile.DoesNotExist:
+            context = context
+        context['likes'] = Position.objects.filter(likes=self.request.user.id)
+        return context
 
 
 ######### DETAIL VIEWS ##########
@@ -192,8 +195,3 @@ class JobLikeAPIToggle(APIView):
         }
         return Response(data)
 
-    # def list(self, request):
-    #     # Note the use of `get_queryset()` instead of `self.queryset`
-    #     queryset = self.get_queryset()
-    #     serializer = UserSerializer(queryset, many=True)
-    #     return Response(serializer.data)

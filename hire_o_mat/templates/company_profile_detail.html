@@ -1,24 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<a class="back-link" href="{% url 'hire_o_mat:company_profiles' %}">back</a>
 
-{% if companyprofile.logo %}
-    <img src='{{ companyprofile.logo.url }}' />
-{% endif %}
+<div class="container center">
+    {% if companyprofile.logo %}
+        <img class="profile-logo" src='{{ companyprofile.logo.url }}' />
+    {% else %}
+        <img class="profile-logo" src='/images/images/logo-placeholder.jpg' />
 
-<h1>{{ companyprofile.company_name }}</h1>
-<h2>{{ companyprofile.contact_email }}</h2>
-<h2>{{ companyprofile.about }}</h2>
-
-{% for city in companyprofile.city.all %}
-    <h4>{{city}}</h4>
-{% endfor %}
-<h2>Current Open Positions</h2>
-{% for pos in position %}
-    {% if companyprofile == pos.company %}
-
-    <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">{{ pos.position }}</a>
     {% endif %}
-{% endfor %}
+
+    <h4>{{ companyprofile.company_name }}</h4>
+    <h2>{{ companyprofile.contact_email }}</h2>
+    <h2>{{ companyprofile.about }}</h2>
+
+    {% for city in companyprofile.city.all %}
+        <h4>{{city}}</h4>
+    {% endfor %}
+        <h2>Current Open Positions</h2>
+        <div class="pos-links">
+            {% for pos in position %}
+                {% if companyprofile == pos.company %}
+                
+                    <a href="{% url 'hire_o_mat:job_detail' pos.pk %}"><div class="card pos-single-link">{{ pos.position }}</div></a>
+                
+                {% endif %}
+            {% endfor %}
+        </div>
+        <br><br><br>
+</div>
 {% endblock %}

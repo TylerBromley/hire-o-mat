@@ -1,79 +1,159 @@
-nav {
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    color: #545454;
+    background-color: #f0ead6;
+  }
+
+main {
+    flex: 1 0 auto;
+}
+
+img {
+    max-width: 100%;
+}
+h4 {
+    font-size: 2rem;
+    margin-top: .5rem;
+}
+
+.sidenav {
+    margin-top: 50px;
+}
+.card .card-action {
+    border-top: none;
+    margin-bottom: .5rem;
+}
+.user-welcome {
+    margin-top: 1rem;
+}
+.wrap {
+    padding: 1em;
+    background-color: white;
+}
+.job-detail {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding-right: 10px;
+    border-bottom: 1px solid lightgray;
 }
-
-header {
+.profile-image {
+    max-width: 50%;
+}
+.pos-links {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+}
+.pos-single-link {
+    padding: 20px;
+}
+.company-pros {
+    box-sizing: border-box;
+    float: left;
+    height: 390px;
+    margin: 15px;
+}
+.profiles-display {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+}
+.pro-card {
+    height: 100%;
+    padding: 0 5px;
+
+}
+.clear {
+  content: "";
+  display: table;
+  clear: both;
 }
 
+input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked {
+    position: relative;
+    opacity: 1;
+}
 select {
     display: flex;
 }
 
-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 10px;
-}
-
-input[type="checkbox"], 
-input[type="checkbox"]:not(:checked), 
-input[type="checkbox"]:checked  {
-    display: flex;
-    position: relative;
-    opacity: 1;
-    background-color: gray;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    padding: 10px;
-}
-
 label {
+    color: #424242 ;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.skill-list {
     display: flex;
-    justify-content: flex-start;
-    text-align: left;
-    padding-left: 20px;
-    margin-left: 20px;
+    flex-wrap: wrap;
+    max-width: 80%;
+    margin: 10px auto 10px auto;
+    padding-bottom: 10px;
+    justify-content: space-around;
+    
 }
-
-.buttons > a {
-    padding-right: 10px;
+.skill {
+    display: flex;
 }
-
-.main-title {
+.work-exp {
     text-align: center;
-    margin: 0;
-    top: 0;
+}
+.exp-list {
+    display: inline-block;
+    text-align: left;
+}
+.back-link {
+    margin-top: 20px;
+    margin-left: 20px;
+    max-width: 10%;
+}
+.profile-logo {
+    max-width: 50%;
+    margin-top: 20px;
+}
+.job-filter {
+    padding: 30px;
+}
+.pos-card {
+    padding: 50px;
+}
+.sign-up {
+    text-align: center;
 }
 
-.big-title {
-    margin: 0 auto 0 auto;
-    padding-left: 40px;
-}
-
-.buttons {
-    display: flex;
-}
-
-#logout-link {
-    color: white;
-}
 
 @media screen and (max-width: 600px) {
-    nav {
-        height: 100px;
+    .company-pros {
+        min-width: 90%;
+        max-width: 90%;
     }
-
-    .big-title {
-        padding-left: 0;
+    .profile-image {
+        max-width: 98%;
+        max-height: auto;
     }
-    
-    .buttons {
-        margin: 0 auto 0 auto;
+}
 
+@media screen and (min-width: 601px) {
+    .company-pros {
+        min-width: 45%;
+        max-width: 45%;
+    }
+    .profile-image {
+        max-width: 98%;
+        max-height: auto;
+    }
+}
+@media screen and (min-width: 899px) {
+    .company-pros {
+        min-width: 30%;
+        max-width: 30%;
+    }
+    .profile-image {
+        width: ;
     }
 }

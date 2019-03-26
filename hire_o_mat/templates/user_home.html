@@ -1,91 +1,131 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<header id="user-home-header">
-
+<header class="center" id="user-home-header">
     {% if user.companyprofile %}
-        <h1>Hi {{ user.companyprofile.company_name }} </h1>
+        {% if user.companyprofile.logo %}
+            <br>
+            <br>
+            <img src='/images/{{ user.companyprofile.logo }}' height="200" width="200"/>
+        {% endif %}
+        <h1 class="user-welcome">Hi {{ user.companyprofile.company_name }} </h1>
     {% elif user.first_name %}
         <h1>Hi {{ user.first_name }}!</h1>
     {% else %}
         <h1>Hi {{ user.username }}!</h1>
     {% endif %}
     <hr>
-
 </header>
+{% if user.companyprofile %}
+    <div class="container center">
 
-<section id="user-section">
+        <div class="card">
+            <div class="card-action">
+                <br>
+                <a href="{% url 'hire_o_mat:search_profiles' %}">
+                    <h4>Search Profiles</h4>
+                </a>
+            </div>
+        </div>
+            <div class="card">
+                <div class="card-action">
+                <a href="{% url 'hire_o_mat:my_company_profile' %}">
+                    <h4>My Company Profile</h4>
+                </a>
+                <br>
+            </div>
+        </div>
 
-    <h1>User Section</h1>
+        <div class="card">
+            <br>
+            <div class="card-action">
+                <h4>CURRENT OPEN POSITIONS</h4>
+                <br>
+                <div class="container">
+                    {% if position|length > 0 %}
+                        {% for pos in position %}
+                            <div class="job-detail">
+                                <a class="left" href="{% url 'hire_o_mat:job_detail' pos.pk %}">{{ pos.position }}</a>
+                                <p class="right">Likes: {{pos.likes.count}}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        None
+                    {% endif %}
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <br>
+            <div class="card-action">
+                <a href="{% url 'hire_o_mat:create_job' %}">
+                    <h4>Create Job Listing</h4>
+                </a>
+            </div>
+            <br>
+        </div>
 
-    <h2>Liked Jobs</h2>
-    {% for like in likes %}
-        <a href="{% url 'hire_o_mat:job_detail' like.pk %}">{{ like }}</a>
-    {% endfor %}
+        
 
-    <h2>View company profiles</h2>
-    <a href="{% url 'hire_o_mat:company_profiles' %}">
-        <button>View company profiles</button>
-    </a>
+    </div>
+{% elif user.userprofile %}
+<div class="container center">
 
+    <div class="card">
+        <div class="card-action">
+            <h4>LIKED JOBS</h4>
+            {% for like in likes %}
+                <a class="cyan-text darken-4" href="{% url 'hire_o_mat:job_detail' like.pk %}">{{ like }}</a>
+            {% endfor %}
+        </div>
+    </div>
 
-    {% if user.userprofile %}
+    <div class="card">
+        <div class="card-action">
+            <a href="{% url 'hire_o_mat:company_profiles' %}">
+                <h4>View company profiles</h4>
+            </a>
+        </div>
+    </div>
 
-        <h2>View my user profile</h2>
-        <a href="{% url 'hire_o_mat:my_user_profile' %}">
-            <button>My Profile</button>
-        </a>
+    <div class="card">
+        <div class="card-action">
+            <a href="{% url 'hire_o_mat:my_user_profile' %}">
+                <h4>View My Profile</h4>
+            </a>
+        </div>
+    </div>
 
-        <h2>See jobs</h2>
-        <a href="{% url 'hire_o_mat:search_jobs' %}">
-            <button>Search Job Listings</button>
-        </a>
+    <div class="card">
+        <div class="card-action">
+            <a href="{% url 'hire_o_mat:search_jobs' %}">
+                <h4>Search Job Listings</h4>
+            </a>
+        </div>
+    </div>
 
-    {% else %}
-        <h2>Please create a user profile:</h2>
-        <a href="{% url 'hire_o_mat:create_user_profile' %}">
-            <button>Personal Profile</button>
-        </a>
+    
+</div>    
+{% else %}
+<div class="container center">
+    <div class="card">
+        <div class="card-action">
+            <a href="{% url 'hire_o_mat:create_user_profile' %}">
+                <h4>Create a Personal Profile</h4>
+            </a>
+        </div>
+    </div>
+</div>
 
-    {% endif %}
-
-    <br><br>
-    <hr>
-</section>
-
-<section id="company-section">
-
-    <h1>Company Section</h1>
-
-    {% if user.companyprofile %}
-
-        <h2>View user profiles</h2>
-        <a href="{% url 'hire_o_mat:search_profiles' %}"><button>Search profiles</button></a>
-
-        <h2>View my Company profile</h2>
-        <a href="{% url 'hire_o_mat:my_company_profile' %}">
-            <button>My Company Profile</button>
-        </a>
-
-        <h2>Current Open Positions</h2>
-        {% for pos in position %}
-            <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">{{ pos.position }}</a>
-            <p>Likes: {{pos.likes.count}}</p>
-        {% endfor %}
-
-        <h2>Create Job Listing</h2>
-        <a href="{% url 'hire_o_mat:create_job' %}">
-            <button>Create Job</button>
-        </a>
-
-    {% else %}
-
-        <h2>Please create a company profile</h2>
-        <a href="{% url 'hire_o_mat:create_company_profile' %}">
-            <button>Company Profile</button>
-        </a>
-
-    {% endif %}
-</section>
+<div class="container center">
+    <div class="card">
+        <div class="card-action">
+            <a href="{% url 'hire_o_mat:create_company_profile' %}">
+                <h4>Company Profile</h4>
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}

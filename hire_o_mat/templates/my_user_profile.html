@@ -1,26 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">back</a>
+<div class="container center">
+    <div class="card">
+        <br>
+        {% if user.userprofile.photo %}
+            <img class="profile-image center" src="{{ user.userprofile.photo.url }}"/>
+        {% endif %}
+        <br><br>
+    </div>
+    <div class="card">
+        <h1>{{user.first_name}} {{user.last_name}}</h1>
+        {% for city in user.userprofile.city.all %}
+            <h4>{{city}}</h4>
+        {% endfor %}
+        <h3>{{user.userprofile.about_me}}</h3>
+        <h3>{{user.userprofile.tagline}}</h3>
+        <a href="{% url 'hire_o_mat:edit_user_profile' user.userprofile.id %}"><button>Edit Profile</button></a>
+        <br><br>
+    </div>
+    <div class="card">
+        <h3>Contact Me</h3>
+        <a href="{{user.userprofile.main_link}}">{{user.userprofile.main_link}}</a>
+        <br>
+        <a href="{{user.userprofile.secondary_link}}">{{user.userprofile.secondary_link}}</a>
+        <br>
+        <br>
+    </div>
 
-{% if user.userprofile.photo %}
-    <img src="{{ user.userprofile.photo.url }}"/>
-{% endif %}
+    <div class="card">
+        <h3>Skills</h3>
+        <div class="skill-div">
+            <ul class="skill-list">
+                {% for skill in user.userprofile.skills.all %}
+                    <li class="skill" id="skill-{{ skill.pk }}">{{skill}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-<h1>{{user.first_name}} {{user.last_name}}</h1>
-<h3>{{user.userprofile.about_me}}</h3>
-<h3>{{user.userprofile.tagline}}</h3>
+    
 
-{% for skill in user.userprofile.skills.all %}
-    <p>{{skill}}</p>
-{% endfor %}
 
-{% for city in user.userprofile.city.all %}
-    <h4>{{city}}</h4>
-{% endfor %}
-
-<a href="{{user.userprofile.main_link}}">{{user.userprofile.main_link}}</a>
-<h3>{{ user.userprofile.work_experience_1 }}</h3>
-<a href="{% url 'hire_o_mat:edit_user_profile' user.userprofile.id %}">Edit Profile</a>
-
+    <div class="card">
+        <h3>Work Experience</h3>
+        <div class="work-exp">
+            <div class="exp-list">
+                <p>{{ user.userprofile.work_experience_1 }}</p>
+                <p>{{ user.userprofile.work_experience_2 }}</p>
+                <p>{{ user.userprofile.work_experience_3 }}</p>
+            </div>
+            <br>
+        </div>
+    </div>
+    
+    <br>
+</div>
 {% endblock %}
