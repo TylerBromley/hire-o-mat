@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import City, CompanyProfile, Position, Skill, UserProfile
+from .models import City, CompanyProfile, Message, Position, Skill, UserProfile
 
 class UserProfileForm(ModelForm):
     skills = forms.ModelMultipleChoiceField(
@@ -62,3 +62,16 @@ class JobForm(ModelForm):
             if commit:
                 job.save()
             return job
+
+class MessageForm(ModelForm):
+
+    class Meta:
+        model = Message
+        fields = ["message_title", "message_content"]
+
+        def save(self, commit=True):
+            message = super(MessageForm, self).save(commit=False)
+            message.sender = self.user.username
+            if commit:
+                message.save()
+            return message

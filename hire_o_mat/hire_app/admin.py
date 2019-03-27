@@ -12,4 +12,4 @@ admin.site.register(City)
 
 admin.site.register(Position)
 
-admin.site.register(Interest)
+admin.site.register(Message)

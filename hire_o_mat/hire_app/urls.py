@@ -29,6 +29,8 @@ urlpatterns = [
     path('search_jobs/', views.job_search, name='search_jobs'),
     path('job_like_toggle/<int:pk>', views.JobLikeToggle.as_view(), name="job_like_toggle"),
     path('api/<int:pk>/like', views.JobLikeAPIToggle.as_view(), name="job_like_api_toggle"),
+
+    path('create_message/<int:pk>/', views.MessageSend.as_view(), name="create_message"),
     
 ]
 

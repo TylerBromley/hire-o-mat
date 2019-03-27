@@ -95,6 +95,12 @@
             </a>
         </div>
     </div>
+    <div class="card">
+        <h4>My Messages</h4>
+        {% for message in messages %}
+            <a href="#"><p>{{ message }}</p></a>
+        {% endfor %}
+    </div>
 
     <div class="card">
         <div class="card-action">

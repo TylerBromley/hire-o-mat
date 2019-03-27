@@ -32,6 +32,7 @@ class Position(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to='images', null=True, blank=True)
     likes = models.ManyToManyField(User, blank=True, related_name='position_likes')
+    salary = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.position
@@ -70,11 +71,15 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
+    message_title = models.CharField(max_length=180, null=True, blank=True)
+    message_content = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-class Interest(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    created = models.DateTimeField(null=True, auto_now_add=True)
+    def __str__(self):
+        return self.message_title
 
 
 

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container center">
+    <div class="card">
+        <h3>{{pk }}</h3>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" value="{{receiver.pk}}">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <input type="submit" value="Send message">
+
+        </form>
+    </div>
+</div>
+{% endblock %}

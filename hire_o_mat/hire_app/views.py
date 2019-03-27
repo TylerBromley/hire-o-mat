@@ -8,14 +8,14 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.models import User
 from .filters import PositionFilter, UserProfileFilter
-from .forms import CompanyProfileForm, JobForm, UserProfileForm
+from .forms import CompanyProfileForm, JobForm, MessageForm, UserProfileForm
 # DRF STUFF
 from rest_framework import authentication, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # MODELS
-from .models import CompanyProfile, Position, UserProfile
+from .models import CompanyProfile, Message, Position, UserProfile
 
 ########### MAIN PAGES ############
 class HomePage(TemplateView):
@@ -31,9 +31,11 @@ class UserHome(LoginRequiredMixin, TemplateView):
         try:
             context['company'] = CompanyProfile.objects.get(user=self.request.user)
             context['position'] = Position.objects.filter(company=self.request.user.companyprofile.id)
+
         except CompanyProfile.DoesNotExist:
             context = context
         context['likes'] = Position.objects.filter(likes=self.request.user.id)
+        context['messages'] = Message.objects.filter(receiver=self.request.user)
         return context
 
 
@@ -195,3 +197,14 @@ class JobLikeAPIToggle(APIView):
         }
         return Response(data)
 
+class MessageSend(LoginRequiredMixin, CreateView):
+    model = Message
+    form_class = MessageForm
+    template_name = 'create_message.html'
+    success_url = reverse_lazy('hire_o_mat:user_home')
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        form.instance.receiver = get_object_or_404(User, pk=self.kwargs['pk'])
+        print(form.instance.receiver)
+        return super().form_valid(form)
