@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<a class="back-link" href="{% url 'hire_o_mat:company_profiles' %}">back</a>
+<a class="back-link" href="{% url 'hire_o_mat:company_profiles' %}"><i class="material-icons">arrow_back_ios</i></a>
 <div class="container center">
-    {% if position.company.logo.DoesNotExist %}
-        <img src='/images/images/logo-placeholder.jpg' />
+    {% if position.company.logo %}
+        <img src='/images/{{ position.company.logo }}' />
     {% else %}
-        <img src='/images/{{ position.company.logo }}' /> 
+        <img src='/images/images/logo-placeholder.jpg' />
     {% endif %}
     <h2><em>{{ position.position }}</em></h2>
     <h3>{{ position.company }}</h3>

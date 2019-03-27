@@ -1,13 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<a class="back-link" href="{% url 'hire_o_mat:search_profiles' %}"><i class="material-icons">arrow_back_ios</i></a>
 <div class="container center">
     {% if userprofile.photo %}
         <img src='{{ userprofile.photo.url }}' />
+    {% else %}
+        <img src="/images/images/user-placeholder.png">
     {% endif %}
+    <br><br>
+    <div class="card">
+        <h1>{{userprofile.first_name}} {{userprofile.last_name}}</h1>
+        {% for city in userprofile.city.all %}
+            <h4>{{city}}</h4>
+        {% endfor %}
+        <h3>{{userprofile.about_me}}</h3>
+        <h3>{{userprofile.tagline}}</h3>
+        <br><br>
+    </div>
+    <div class="card">
+        <h3>Contact Me</h3>
+          <a href="{{userprofile.main_link}}">{{userprofile.main_link}}</a>
+          <br>
+          {% if userprofile.secondary_link %}
+            <a href="{{userprofile.secondary_link}}">{{userprofile.secondary_link}}</a>
+          {% endif %}  
+          <br><br>
+    </div>
+    <div class="card">
+        <h3>Skills</h3>
+        <div class="skill-div">
+            <ul class="skill-list">
+                {% for skill in userprofile.skills.all %}
+                    <li class="skill" id="skill-{{ skill.pk }}">{{skill}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-    <h1>{{userprofile.first_name}} {{userprofile.last_name}}</h1>
-    <h3>{{userprofile.about_me}}</h3>
-    <h3>{{userprofile.tagline}}</h3>
+    <div class="card">
+        <h3>Work Experience</h3>
+        <div class="work-exp">
+            <div class="exp-list">
+                {% if userprofile.work_experience_1 %}
+                    <p>{{ userprofile.work_experience_1 }}</p>
+                {% endif %}
+                {% if userprofile.work_experience_2 %}
+                    <p>{{ userprofile.work_experience_2 }}</p>
+                {% endif %}
+                {% if userprofile.work_experience_3 %}
+                    <p>{{ userprofile.work_experience_3 }}</p>
+                {% endif %}
+            </div>
+            <br>
+        </div>
+    </div>
 </div>
 {% endblock %}

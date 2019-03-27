@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
+<a href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a>
 {% for pos in object_list %}
 
     {% if pos.company.logo %}

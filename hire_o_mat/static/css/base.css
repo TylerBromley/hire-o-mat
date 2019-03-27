@@ -22,6 +22,20 @@ h4 {
     margin-top: .5rem;
 }
 
+input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked {
+    position: relative;
+    opacity: 1;
+}
+select {
+    display: flex;
+}
+
+label {
+    color: #424242 ;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
 .sidenav {
     margin-top: 50px;
 }
@@ -57,6 +71,12 @@ h4 {
     height: 390px;
     margin: 15px;
 }
+
+.job-pros {
+    box-sizing: border-box;
+    height: 390px;
+    margin: 15px;
+}
 .profiles-display {
     display: flex;
     flex-wrap: wrap;
@@ -64,7 +84,7 @@ h4 {
 
 }
 .pro-card {
-    height: 100%;
+    min-height: 200px;
     padding: 0 5px;
 
 }
@@ -73,19 +93,19 @@ h4 {
   display: table;
   clear: both;
 }
-
-input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked {
-    position: relative;
-    opacity: 1;
+.company-edit {
+    padding: 20px;
 }
-select {
+
+#id_city {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
-
-label {
-    color: #424242 ;
-    margin-right: 10px;
-    font-size: 1em;
+#id_skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .skill-list {
@@ -116,6 +136,10 @@ label {
     max-width: 50%;
     margin-top: 20px;
 }
+.user-image {
+    max-width: 50%;
+    margin-top: 20px;
+}
 .job-filter {
     padding: 30px;
 }
@@ -125,12 +149,21 @@ label {
 .sign-up {
     text-align: center;
 }
+.search-title {
+    margin-top: 0;
+}
+.search-card {
+    padding: 20px;
+}
+
 
 
 @media screen and (max-width: 600px) {
     .company-pros {
         min-width: 90%;
         max-width: 90%;
+        max-height: 300px;
+        margin-bottom: 0;
     }
     .profile-image {
         max-width: 98%;
@@ -147,13 +180,30 @@ label {
         max-width: 98%;
         max-height: auto;
     }
+    .pro-card {
+        min-height: 350px;
+    }
 }
 @media screen and (min-width: 899px) {
     .company-pros {
         min-width: 30%;
         max-width: 30%;
+        height: 200px;
+    }
+    .job-pros {
+        min-width: 30%;
+        max-width: 30%;
+        height: 390px;
+        margin: 15px;
     }
     .profile-image {
         width: ;
+    }
+    .pro-card {
+        min-height: 350px;
+    }
+    .search-image {
+        margin-top: 10px;
+        max-height: 250px;
     }
 }

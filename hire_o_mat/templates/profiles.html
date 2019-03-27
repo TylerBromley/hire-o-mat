@@ -1,30 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a href="{% url 'hire_o_mat:user_home' %}">back</a>
-
+<a href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a>
+<div class="profiles-display center">
 {% for profile in object_list %}
+    <a class="company-pros clear" href="{% url 'hire_o_mat:profile_detail' profile.pk %}"><div class="card pro-card">
+        {% if profile.photo %}
+            <img class="user-image" src='{{ profile.photo.url }}' />
+        {% else %}
+            <img class="profile-logo" src='/images/images/user-placeholder.jpg' />
+        {% endif %}
 
-    {% if profile.photo %}
-        <img src='{{ profile.photo.url }}' />
-    {% endif %}
+        <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+        <h3>{{profile.tagline}}</h3>
 
-    <h1>{{profile.first_name}} {{profile.last_name}}</h1>
-    <h3>{{profile.about_me}}</h3>
-    <h3>{{profile.tagline}}</h3>
-
-    {% for skill in profile.skills.all %}
-        <p>{{skill}}</p>
-    {% endfor %}
-
-    {% for city in profile.city.all %}
-        <h4>{{city}}</h4>
-    {% endfor %}
-    
-    <a href="{{profile.main_link}}">{{profile.main_link}}</a>
-    <h3>{{ profile.work_experience_1 }}</h3>
-    <hr/>
-    <br/>
+        <br/>
+    </div></a>
 
 {% endfor %}
 

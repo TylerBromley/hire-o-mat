@@ -15,7 +15,7 @@
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 {% if user.is_authenticated %}
-                <li><a class="user-home" href="{% url 'hire_o_mat:user_home' %}">My Home</a></li>
+                <li><a class="user-home" href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a></li>
                 <li><a class="logout-link" href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>

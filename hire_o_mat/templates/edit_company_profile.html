@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Edit Profile</h2>
+<a class="back-link" href="{% url 'hire_o_mat:my_company_profile' %}"><i class="material-icons">arrow_back_ios</i></a>
+<div class="container center">
+    <h2>Edit Profile</h2>
+    <div class="card company-edit">
+        <form 
+            action="{% url 'hire_o_mat:edit_company_profile' user.companyprofile.id %}" 
+            method="post" 
+            enctype="multipart/form-data"
+        >
+            {% csrf_token %}
+            {{ form.as_p }}
 
-<form 
-    action="{% url 'hire_o_mat:edit_company_profile' user.companyprofile.id %}" 
-    method="post" 
-    enctype="multipart/form-data"
->
-    {% csrf_token %}
-    {{ form.as_p }}
+            <input type="submit" value="Save Profile">
 
-    <input type="submit" value="Save Profile">
-
-</form>
-
+        </form>
+        <br>
+        <br>
+    </div>
+</div>
 {% endblock %}

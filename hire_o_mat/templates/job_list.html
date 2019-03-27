@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">Back</a>
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a>
 
 <div class="container center">
     <div class="card job-filter">
@@ -10,21 +10,23 @@
         </form>
     </div>
 
-    {% for pos in filter.qs %}
-        <div class="card pos-card">
-            <div class="center">
-                {% if pos.company.logo %}
-                    <img src='/images/{{ pos.company.logo }}'/>
-                {% endif %}
-            </div>
 
-            <h3>{{pos.company }}</h3>
-            <h3>{{ pos.position }}</h3>
-            <h3>{{ pos.description }}</h3>
-            <a data-href="{{ pos.get_api_like_url }}" href="{{ pos.get_like_url }}" data-likes="pos.likes.count" class="like-btn"><button>Likes: {{ pos.likes.count }}</button></a>
-        
-        </div>
-        <br/>
-    {% endfor %}
+        {% for pos in filter.qs %}
+            <a href="{% url 'hire_o_mat:job_detail' pos.pk %}">
+                <div class="card">
+                    <h2>{{ pos.position }}</h2>
+                    {% if pos.company.logo %}
+                        <img class="profile-logo" src='/images/{{ pos.company.logo }}'/>
+                    {% else %}
+                        <img class="profile-logo" src='/images/images/logo-placeholder.jpg' />
+                    {% endif %}
+                    <h2>{{pos.company }}</h2>
+                    
+                    <a data-href="{{ pos.get_api_like_url }}" href="{{ pos.get_like_url }}" data-likes="pos.likes.count" class="like-btn">Likes: {{ pos.likes.count }}</a>
+                    <br><br>
+                </div>
+            </a>
+
+        {% endfor %}
 </div>
 {% endblock %}

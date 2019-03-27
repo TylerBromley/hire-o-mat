@@ -1,41 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<a class="back-link" href="{% url 'hire_o_mat:user_home' %}">Home</a>
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a>
 <div class="container center">
-    <div class="card">
-        <h3>Search Candidates</h3>
+    <div class="card search-card">
+        <h3 class="search-title">Search Candidates</h3>
         <form method="get">
             {{ filter.form.as_p }}
             <button type="submit">Search</button>
         </form>
-        <br>
     </div>
-
+</div>
+<div class="profiles-display center">
 
     {% for profile in filter.qs %}
-        <div class="card">
+        <a class="company-pros clear" href="{% url 'hire_o_mat:profile_detail' profile.pk %}"><div class="card pro-card">
             {% if profile.photo %}
-                <img src='{{ profile.photo.url }}' />
+                <img class="search-image" src='{{ profile.photo.url }}' />
+            {% else %}
+                <img class="user-image" src='/images/images/user-placeholder.png' />
             {% endif %}
 
-            <h1>{{profile.user.first_name}} {{profile.user.last_name}}</h1>
-            <h3>{{profile.about_me}}</h3>
-            <h3>{{profile.tagline}}</h3>
-            <h3>Contact me: <a href="mailto:{{profile.user.email}}">{{profile.user.email}}</a></h3>
-
-            {% for skill in profile.skills.all %}
-                <p>{{skill}}</p>
-            {% endfor %}
-
-            {% for city in profile.city.all %}
-                <h4>{{city}}</h4>
-            {% endfor %}
-            
-            <a href="{{profile.main_link}}">{{profile.main_link}}</a>
-            <h3>{{ profile.work_experience_1 }}</h3>
-            <br/>
-        </div>
+            <h4>{{profile.user.first_name}} {{profile.user.last_name}}</h4>
+            <p>{{profile.tagline}}</p>
+            <br>
+        </div></a>
 
     {% endfor %}
 </div>
