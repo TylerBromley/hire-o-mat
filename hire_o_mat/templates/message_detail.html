@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a>
+<div class="container big-container center">
+    <a href="{% url 'hire_o_mat:message_history' user.pk %}">Message Thread</a>
+    {% if user.is_authenticated %}
+        <div class="message-div z-depth-2">
+            <h1>{{ message.message_title }}</h1>
+            <p>From: {{ message.sender }} To: {{ message.receiver }}</p>
+            <p>{{ message.message_content }}</p>
+            <p>{{ message.created_at }}</p>
+        </div>
+        <br>
+        <a class="btn" href="{% url 'hire_o_mat:create_message' message.sender.pk %}">Reply</a>
+        <br><br>
+    {% endif %}
+</div>
+{% endblock %}

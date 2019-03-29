@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<a class="back-link" href="{% url 'hire_o_mat:user_home' %}"><i class="material-icons">home</i></a>
+    <div class="container center">
+        <div class="message-div z-depth-2">
+        {% for mess in object_list %}
+            <div class="inner-div z-depth-2">
+                <h4>{{ mess.message_title }}</h4>
+                
+                {% if mess.receiver.id == user.id %}
+                    <p>To: Me</p>
+                    <p>From: {{ mess.sender }}</p>
+                {% else %}
+                    <p>To: {{mess.receiver}}</p>
+                    <p>From: Me</p>
+                {% endif %}
+                <p>{{ mess.message_content }}</p>
+                <p>{{ mess.created_at }}</p>
+                {% if mess.sender.id != user.id %}
+                    <a class="btn" href="{% url 'hire_o_mat:create_message' mess.sender.id %}">Reply</a>
+                    <br>
+                {% else %}
+                <br>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+        
+    
+    </div>
+    <br><br>
+
+{% endblock %}
