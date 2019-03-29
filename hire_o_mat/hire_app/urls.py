@@ -31,6 +31,8 @@ urlpatterns = [
     path('api/<int:pk>/like', views.JobLikeAPIToggle.as_view(), name="job_like_api_toggle"),
 
     path('create_message/<int:pk>/', views.MessageSend.as_view(), name="create_message"),
+    path('message_detail/<int:pk>/', views.MessageDetail.as_view(), name="message_detail"),
+    path('message_history/<int:pk>/', views.MessageList.as_view(), name="message_history"),
     
 ]
 

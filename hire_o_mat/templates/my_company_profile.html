@@ -7,7 +7,7 @@
     {% endif %}
 
         <h1>{{ user.companyprofile.company_name }}</h1>
-        <a href="{% url 'hire_o_mat:edit_company_profile' user.companyprofile.id %}"><button>Edit Profile</button></a>
+        <a class="btn" href="{% url 'hire_o_mat:edit_company_profile' user.companyprofile.id %}">Edit Profile</a>
         <h2>{{ user.companyprofile.contact_email }}</h2>
         <h2>{{ user.companyprofile.about }}</h2>
 

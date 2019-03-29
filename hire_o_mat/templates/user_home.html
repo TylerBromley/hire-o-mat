@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <header class="center" id="user-home-header">
+    
     {% if user.companyprofile %}
         {% if user.companyprofile.logo %}
             <br>
@@ -34,7 +35,7 @@
                 <br>
             </div>
         </div>
-
+        
         <div class="card">
             <br>
             <div class="card-action">
@@ -53,6 +54,14 @@
                     {% endif %}
                     <br>
                 </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-action">
+                <h4>My Messages</h4>
+                {% for message in messages %}
+                    <a href="{% url 'hire_o_mat:message_detail' message.pk %}">{{ message }}</a>
+                {% endfor %}
             </div>
         </div>
         <div class="card">
@@ -79,6 +88,7 @@
             {% endfor %}
         </div>
     </div>
+    
 
     <div class="card">
         <div class="card-action">
@@ -96,12 +106,13 @@
         </div>
     </div>
     <div class="card">
-        <h4>My Messages</h4>
-        {% for message in messages %}
-            <a href="#"><p>{{ message }}</p></a>
-        {% endfor %}
+        <div class="card-action">
+            <h4>MY MESSAGES</h4>
+            {% for message in messages %}
+                <a href="{% url 'hire_o_mat:message_detail' message.pk %}">{{ message }}</a>
+            {% endfor %}
+        </div>
     </div>
-
     <div class="card">
         <div class="card-action">
             <a href="{% url 'hire_o_mat:search_jobs' %}">
@@ -109,9 +120,7 @@
             </a>
         </div>
     </div>
-
-    
-</div>    
+</div>   
 {% else %}
 <div class="container center">
     <div class="card">
@@ -132,6 +141,9 @@
         </div>
     </div>
 </div>
+{% endif %}
+{% if user.companyprofile and user.userprofile %}
+    
 {% endif %}
 
 {% endblock %}

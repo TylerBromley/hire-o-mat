@@ -11,7 +11,7 @@
     <h3>{{ position.company }}</h3>
     <h3>{{ position.description }}</h3>
     <p>Posted on {{ position.date_added }}</p>
-    <a data-href="{{ position.get_api_like_url }}" href="{{ position.get_like_url }}" data-likes="position.likes.count" class="like-btn"><button>Likes: {{ position.likes.count }}</button></a>
+    <a data-href="{{ position.get_api_like_url }}" href="{{ position.get_like_url }}" data-likes="position.likes.count" class="btn like-btn">Likes: {{ position.likes.count }}</a>
     <br><br><br>
     {% if user.companyprofile.company_name == position.company %}
         {% if position.likes.count > 0 %}

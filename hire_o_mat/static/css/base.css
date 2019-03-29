@@ -155,8 +155,23 @@ label {
 .search-card {
     padding: 20px;
 }
-
-
+.message-div {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid black;
+    background: white;
+}
+.inner-div {
+    border: 1px solid black;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.inner-div:nth-child(even) {
+    background-color: lightgray;
+}
+.create-mess {
+    padding: 20px;
+}
 
 @media screen and (max-width: 600px) {
     .company-pros {
@@ -205,5 +220,11 @@ label {
     .search-image {
         margin-top: 10px;
         max-height: 250px;
+    }
+    .big-container {
+        min-height: 60vh;
+    }
+    .create-mess {
+        min-height: 60vh;
     }
 }

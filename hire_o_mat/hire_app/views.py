@@ -15,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # MODELS
+from django.db.models import Q
 from .models import CompanyProfile, Message, Position, UserProfile
 
 ########### MAIN PAGES ############
@@ -43,7 +44,6 @@ class UserHome(LoginRequiredMixin, TemplateView):
 class MyUserProfile(LoginRequiredMixin, TemplateView):
     model = UserProfile
     template_name = 'my_user_profile.html'
-
 
 class MyCompanyProfile(LoginRequiredMixin, TemplateView):
     model = CompanyProfile
@@ -79,6 +79,10 @@ class JobLikeToggle(LoginRequiredMixin, RedirectView):
                 obj.likes.add(user)
         return url_
 
+class MessageDetail(LoginRequiredMixin, DetailView):
+    model = Message
+    template_name = 'message_detail.html'
+
 ########## LIST VIEW ###########
 class UserProfileList(LoginRequiredMixin, ListView):
     model = UserProfile
@@ -104,6 +108,16 @@ class CompanyProfileList(LoginRequiredMixin, ListView):
 class JobList(LoginRequiredMixin, ListView):
     model = Position
     template_name = 'jobs.html'
+
+class MessageList(LoginRequiredMixin, ListView):
+    model = Message
+    template_name = 'message_history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sender'] = Message.objects.filter(sender=self.request.user)
+        context['receiver'] = Message.objects.filter(receiver=self.request.user)
+        return context
 
 
 ############ CREATE #############
